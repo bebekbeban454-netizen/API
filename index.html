@@ -1,0 +1,33 @@
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Website API</title>
+</head>
+<body>
+
+    <h1>Random Anime</h1>
+    <button onclick="ambilAnime()">Ambil Anime</button>
+
+    <h2 id="judul"></h2>
+    <img id="gambar" width="200">
+    <p id="sinopsis"></p>
+
+    <script>
+        function ambilAnime() {
+            fetch("https://api.jikan.moe/v4/random/anime")
+                .then(res => res.json())
+                .then(data => {
+                    const anime = data.data;
+                    document.getElementById("judul").innerText = anime.title;
+                    document.getElementById("gambar").src = anime.images.jpg.image_url;
+                    document.getElementById("sinopsis").innerText = anime.synopsis;
+                })
+                .catch(err => {
+                    alert("Gagal mengambil data");
+                    console.log(err);
+                });
+        }
+    </script>
+
+</body>
+</html>
